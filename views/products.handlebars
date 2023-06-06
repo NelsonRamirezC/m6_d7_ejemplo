@@ -1,0 +1,9 @@
+<h1>Listado de productos.</h1>
+
+{{#if productos}}
+    {{>lista 
+        data=productos
+    }}
+{{else}}
+    <h2>No hay productos para mostrar.</h2>
+{{/if}}

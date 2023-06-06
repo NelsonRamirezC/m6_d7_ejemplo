@@ -1,0 +1,9 @@
+<h1>Lista de usuarios del sistema.</h1>
+
+{{#if usuarios}}
+    {{>lista 
+        data=usuarios
+    }}
+{{else}}
+    <h2>No hay usuarios para mostrar.</h2>
+{{/if}}
