@@ -52,6 +52,23 @@ app.get("/products", (req, res) => {
     });
 });
 
+//VISTA ACTUALIZAR USUARIOS
+app.get("/updateuser/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        let usuario = new Usuario();
+        let found = await usuario.findById(id);
+        console.log("usuario:", found);
+        res.render("update_user", {
+            usuario: found,
+        });
+    } catch (error) {
+        res.render("update_user", {
+            error: true,
+        });
+    }
+});
+
 app.get("/users", async (req, res) => {
     let usuario = new Usuario();
     let respuesta = usuario.findAll();

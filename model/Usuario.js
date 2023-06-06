@@ -11,8 +11,10 @@ class Usuario {
         return await leerArchivo("personas.json");
     }
 
-    findById(nombre) {
-        console.log("buscando usuario por nombre");
+    async findById(id) {
+        let data = await leerArchivo("personas.json");
+        let found = data.usuarios.find((usuario) => usuario.id == id);
+        return found;
     }
 
     findByEmail(email) {
