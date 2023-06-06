@@ -19,8 +19,16 @@ class Usuario {
         console.log("Buscando usuario por email");
     }
 
-    save() {
-        console.log("Guardando usuario.");
+    async save() {
+        let data = await leerArchivo("personas.json");
+        let usuario = {
+            id: this.id,
+            nombre: this.nombre,
+            apellido: this.apellido,
+            email: this.email,
+        };
+        data.usuarios.push(usuario);
+        return await escribirArchivo("personas.json", data);
     }
 
     update(usuario) {

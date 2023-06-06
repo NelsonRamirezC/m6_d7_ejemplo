@@ -17,6 +17,18 @@
             "nombre": "María",
             "apellido": "Castillo",
             "email": "maria@gmail.com"
+        },
+        {
+            "id": "37b282",
+            "nombre": "Nelson",
+            "apellido": "Ramírez",
+            "email": "nelson@gmail.com"
+        },
+        {
+            "id": "a362d5",
+            "nombre": "Israel",
+            "apellido": "Medoza",
+            "email": "israel@gmail.com"
         }
     ]
 }

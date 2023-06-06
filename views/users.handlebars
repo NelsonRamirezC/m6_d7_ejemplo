@@ -35,9 +35,38 @@
 <script>
     let formCreateUser = document.getElementById("formCreateUser")
 
-    formCreateUser.addEventListener("submit", (event) => {
+    formCreateUser.addEventListener("submit", async(event) => {
         event.preventDefault();
         console.log("Capturando formulario");
+        try{
+
+                const raw = JSON.stringify({
+                    "nombre": createNombre.value,
+                    "apellido": createApellido.value,
+                    "email": createEmail.value
+                });
+
+                const myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/json");
+
+                let response = await fetch("/usuarios", {
+                    method: "POST",
+                    headers: myHeaders,
+                    body: raw,
+                    redirect: 'follow'
+                });
+
+                let data = await response.json();
+                if(data.code == 201){
+                    alert("Usuario creado con éxito.")
+                    formCreateUser.reset();
+                    location.reload();
+                }else{
+                    throw new Error("Error al guardar los datos en la BD.")
+                }
+        }catch(error){
+            alert(error.message)
+        }
     })
 
 </script>

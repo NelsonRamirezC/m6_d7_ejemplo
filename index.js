@@ -1,5 +1,6 @@
 const express = require("express");
 const { create } = require("express-handlebars");
+const { v4: uuid } = require("uuid");
 const Usuario = require("./model/Usuario.js");
 
 //instancia de express.
@@ -14,6 +15,11 @@ const hbs = create({
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 app.set("views", __dirname + "/views");
+
+//MIDDLEWARES
+
+//permite procesar la información enviada por el body (payload) en un request.
+app.use(express.json());
 
 //establecemos el directorio public en modo público.
 app.use(express.static("public"));
@@ -46,12 +52,11 @@ app.get("/products", (req, res) => {
     });
 });
 
-app.get("/users", (req, res) => {
+app.get("/users", async (req, res) => {
     let usuario = new Usuario();
     let respuesta = usuario.findAll();
     respuesta
         .then((data) => {
-            console.log(data);
             res.render("users", {
                 usuarios: data.usuarios,
             });
@@ -61,4 +66,22 @@ app.get("/users", (req, res) => {
                 error,
             });
         });
+});
+
+//RUTAS DE ENDPOINTS
+
+app.post("/usuarios", async (req, res) => {
+    try {
+        let { nombre, apellido, email } = req.body;
+        let id = uuid().slice(0, 6);
+        let newUser = new Usuario(id, nombre, apellido, email);
+        let respuesta = await newUser.save();
+        res.status(201).send({ code: 201, message: respuesta });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            code: 500,
+            message: "error al guardar el usuario en la bd.",
+        });
+    }
 });
