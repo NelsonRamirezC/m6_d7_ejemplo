@@ -1,5 +1,6 @@
 const express = require("express");
 const { create } = require("express-handlebars");
+const Usuario = require("./model/Usuario.js");
 
 //instancia de express.
 const app = express();
@@ -8,7 +9,6 @@ const app = express();
 const hbs = create({
     partialsDir: ["views/partials/"],
 });
-
 
 //configuramos express-handlebars como motor de plantilla del proyecto para renderizar vistas
 app.engine("handlebars", hbs.engine);
@@ -47,7 +47,18 @@ app.get("/products", (req, res) => {
 });
 
 app.get("/users", (req, res) => {
-    res.render("users", {
-        usuarios: ["Carlos", "Mauricio", "María", "Juana"],
-    });
+    let usuario = new Usuario();
+    let respuesta = usuario.findAll();
+    respuesta
+        .then((data) => {
+            console.log(data);
+            res.render("users", {
+                usuarios: data.usuarios,
+            });
+        })
+        .catch((error) => {
+            res.render("users", {
+                error,
+            });
+        });
 });

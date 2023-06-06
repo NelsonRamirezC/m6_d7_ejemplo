@@ -1,0 +1,24 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Email</th>
+            <th scope="col">Actualizar</th>
+            <th scope="col">Eliminar</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each usuarios}}
+            <tr>
+                <th scope="row">{{this.id}}</th>
+                <td>{{this.nombre}}</td>
+                <td>{{this.apellido}}</td>
+                <td>{{this.email}}</td>
+                <td><button class="btn btn-warning">Actualizar</button></td>
+                <td><button class="btn btn-danger">Eliminar</button></td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

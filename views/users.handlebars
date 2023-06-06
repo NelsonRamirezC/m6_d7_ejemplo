@@ -1,9 +1,43 @@
-<h1>Lista de usuarios del sistema.</h1>
+<h1 class="text-center">Lista de usuarios del sistema.</h1>
 
-{{#if usuarios}}
-    {{>lista 
-        data=usuarios
-    }}
-{{else}}
-    <h2>No hay usuarios para mostrar.</h2>
-{{/if}}
+<section>
+    <div class="w-75 mx-auto">
+        <h2 class="text-center">Formulario de creación de usuarios.</h2>
+        <form id="formCreateUser">
+        <label for="createNombre" class="form-label">Nombre</label>
+        <input type="text" name="createNombre" id="createNombre" class="form-control" required>
+        <label for="createApellido" class="form-label">Apellido</label>
+        <input type="text" name="createApellido" id="createApellido" class="form-control" required>
+        <label for="createEmail" class="form-label">Email</label>
+        <input type="email" name="createEmail" id="createEmail" class="form-control" required>
+        <input type="submit" value="Crear" class="btn btn-primary">
+    </form>
+    </div>
+
+</section>
+<hr>
+<section>
+    {{#if usuarios}}
+        {{>table_usuarios 
+            usuarios=usuarios
+        }}
+    {{else}}
+        <h2>No hay usuarios para mostrar.</h2>
+    {{/if}}
+</section>
+
+<style>
+    #formCreateUser input{
+        margin:3px 0px;
+    }
+</style>
+
+<script>
+    let formCreateUser = document.getElementById("formCreateUser")
+
+    formCreateUser.addEventListener("submit", (event) => {
+        event.preventDefault();
+        console.log("Capturando formulario");
+    })
+
+</script>
